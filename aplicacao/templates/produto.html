@@ -38,7 +38,7 @@
         <td> {{p.data}}</td>
         <td> {{p.descricao}}</td>
         <td>
-            <form action="{url 'urleditarProduto' p.id %}" method="POST">
+            <form action="{% url 'urleditarProduto' p.id %}" method="GET">
                 {% endfor %}
                 <input type="submit" value="Editar" class="btn btn-primary">
             </form>

@@ -14,7 +14,7 @@
         
         <div class="container">
             <h1>Editar Produto</h1>
-            <form action="{% url 'urleditarProduto' p.id %}" method="POST">
+            <form action="{% url 'urleditarProduto' p.id %}" method="GET">
                 {% csrf_token %}
             <input type="text" name="txtNome" value="{{p.nome}}" class="form-control">
             <input type="text" name="txtPreco" value="{{p.preco}}" class="form-control">

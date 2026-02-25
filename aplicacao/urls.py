@@ -9,7 +9,7 @@ urlpatterns = [
     path('produto', produto, name="urlproduto"),
     path('cadastrarProduto', cadastrarProduto, name= 'urlcadastrarProduto'),
     path('salvarProduto', salvarProduto, name= 'urlsalvarProduto' ),
-    path('editarProduto/<int:id>', editarProduto, name= 'urleditarProduto'),
+    path('editarProduto/<int:id>', editarProduto, name='urleditarProduto')
 
 
 

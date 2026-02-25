@@ -36,22 +36,30 @@ def salvarProduto(request):
     produto.save()
     return redirect('urlproduto')
 
-    def editarProduto(request, id):
-        produto = Produto.objects.get(id=id)
+def editarProduto(request, id):
+    produto = Produto.objects.get(id=id)
 
+        if request.method == 'GET':
+        context = {'p': produto }
+        return render (request, "editarProduto.html", context)
+
+        else:
         thisnome = request.POST.get('txtNome')
-        thispreco = request.POST.get('txtPreco')
+        thispreco = request.POST.get('txtPreco').replace('.','.')
         thisqtd = request.POST.get('txtQtd')
         thisdata = request.POST.get('txtData')
         thisdescricao = request.POST.get('txtDescricao')
 
-        produto = Produto(
-        nome = thisnome,
-        preco = float( thispreco ),
-        qtd = thisqtd,
-        data = thisdata,
-        descricao = thisdescricao 
-    )
+        produto.nome = thisnome,
+        produto.preco = float( thispreco ),
+        produto.qtd = thisqtd,
+        produto.data = thisdata,
+        produto.descricao = thisdescricao 
+
+        produto.save()
+        return redirect('urlproduto')
+
+    
 
 
 
