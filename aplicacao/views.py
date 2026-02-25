@@ -19,20 +19,41 @@ def cadastrarProduto(request):
     return render(request, "cadastrarProduto.html")
 
 def salvarProduto(request):
-    thisnome = requeste.POST.get('txtNome')
+    thisnome = request.POST.get('txtNome')
     thispreco = request.POST.get('txtPreco')
     thisqtd = request.POST.get('txtQtd')
     thisdata = request.POST.get('txtData')
     thisdescricao = request.POST.get('txtDescricao')
 
-    print(thisnome)
-
     produto = Produto(
-        nome = thisnome
-        preco = thispreco
-        data = thisdata
+        nome = thisnome,
+        preco = float( thispreco ),
+        qtd = thisqtd,
+        data = thisdata,
         descricao = thisdescricao 
     )
 
     produto.save()
     return redirect('urlproduto')
+
+    def editarProduto(request, id):
+        produto = Produto.objects.get(id=id)
+
+        thisnome = request.POST.get('txtNome')
+        thispreco = request.POST.get('txtPreco')
+        thisqtd = request.POST.get('txtQtd')
+        thisdata = request.POST.get('txtData')
+        thisdescricao = request.POST.get('txtDescricao')
+
+        produto = Produto(
+        nome = thisnome,
+        preco = float( thispreco ),
+        qtd = thisqtd,
+        data = thisdata,
+        descricao = thisdescricao 
+    )
+
+
+
+
+

@@ -1,0 +1,29 @@
+{% load bootstrap5 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% bootstrap_css %}
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="container">
+            <h1>Editar Produto</h1>
+            <form action="{% url 'urleditarProduto' p.id %}" method="POST">
+                {% csrf_token %}
+            <input type="text" name="txtNome" value="{{p.nome}}" class="form-control">
+            <input type="text" name="txtPreco" value="{{p.preco}}" class="form-control">
+            <input type="number" name="txtQtd" value="{{p.qdt}}" class="form-control">
+            <input type="date" name="txtData" value="{{p.data}}" class="form-control">
+            <input type="text" name="txtDescricao" value="{{p.descricao}}" class="form-control">
+
+            <input type="submit" value="Salvar" class="btn btn-success">
+        </form>
+    </div>
+</body>
+</html>

@@ -23,6 +23,8 @@
         <th scope="coll">Qtde</th>
         <th scope="coll">Data</th>
         <th scope="coll">Descrição</th>
+        <th scope="coll">Editar</th>
+        <th scope="coll">Excluir</th>
     </tr>
    </thead>
 
@@ -30,14 +32,24 @@
     {% for p in produtos %}
     <tr>
         <th scope="row">{{p.id}}</th>
-        <th> {{p.nome}}</th>
-        <th> {{p.preco}}</th>
-        <th> {{p.qtd}}</th>
-        <th> {{p.data}}</th>
-        <th> {{p.descricao}}</th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <td> {{p.nome}}</td>
+        <td> {{p.preco}}</td>
+        <td> {{p.qtd}}</td>
+        <td> {{p.data}}</td>
+        <td> {{p.descricao}}</td>
+        <td>
+            <form action="{url 'urleditarProduto' p.id %}" method="POST">
+                {% endfor %}
+                <input type="submit" value="Editar" class="btn btn-primary">
+            </form>
+        </td>
+
+        <td>
+            <form action="" method="POST">
+                {% endfor %}
+                <input type="submit" value="Excluir" class="btn btn-danger">
+            </form>
+        </td>
     </tr>
     {% endfor %}
    </tbody>
