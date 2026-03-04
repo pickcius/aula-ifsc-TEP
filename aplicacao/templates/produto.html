@@ -45,8 +45,8 @@
         </td>
 
         <td>
-            <form action="" method="POST">
-                
+            <form action="{% url 'urlexcluirProduto' p.id %}" method="POST">
+                {% csrf_token %}
                 <input type="submit" value="Excluir" class="btn btn-danger">
             </form>
         </td>

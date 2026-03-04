@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect 
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Produto
 
@@ -58,6 +58,18 @@ def editarProduto(request, id):
 
         produto.save()
         return redirect('urlproduto')
+
+def excluirProduto(request, id):
+    produto = get_object_or_404(Produto, id=id)
+    produto.delete()
+    return redirect('urlproduto')
+
+def entrar(request):
+
+    if request.method == 'GET':
+        return render(request, "entrar.html")
+    else:
+        return HttpResponse('entrou')
 
     
 
