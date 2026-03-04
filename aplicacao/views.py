@@ -89,14 +89,14 @@ def sair(request):
     logout(request)
     return redirect('urlentrar')
 
-def cadastrarUsuario(request)
-    if request.method == "GET"
+def cadastrarUsuario(request):
+    if request.method == "GET":
         form = UsuarioForm()
         context = {'form': form}
         return render(request, 'cadastrarUsuario.html', context)
     else:
         form = UsuarioForm(request.POST, request.FILES)
-        if form.is_valis():
+        if form.is_valid():
             form.save()
             return redirect('urlentar')
 
