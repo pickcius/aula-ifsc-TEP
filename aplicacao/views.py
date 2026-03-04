@@ -4,6 +4,7 @@ from .models import Produto
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .form import UsuarioForm
 
 
 def index(request):
@@ -87,6 +88,18 @@ def entrar(request):
 def sair(request):
     logout(request)
     return redirect('urlentrar')
+
+def cadastrarUsuario(request)
+    if request.method == "GET"
+        form = UsuarioForm()
+        context = {'form': form}
+        return render(request, 'cadastrarUsuario.html', context)
+    else:
+        form = UsuarioForm(request.POST, request.FILES)
+        if form.is_valis():
+            form.save()
+            return redirect('urlentar')
+
 
 
 
