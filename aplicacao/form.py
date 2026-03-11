@@ -1,23 +1,23 @@
 from django.forms import fields 
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreations
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
-class UsuarioForm(UserCreations):
+class UsuarioForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'password2']
+        fields = ['username', 'email', 'password1', 'password2']
 
         widgets = {
 
-            'username': forms.TextImput(attrs={
+            'username': forms.TextInput(attrs={
 
                 'class': 'form-control'
 
             }),
         
 
-            'email': forms.TextImput(attrs={
+            'email': forms.TextInput(attrs={
 
                 'class': 'form-control'
 
