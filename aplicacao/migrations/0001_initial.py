@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nome', models.CharField(blank=True, max_length=100, null=True)),
                 ('preco', models.DecimalField(blank=True, decimal_places=2, max_digits=10, null=True)),
-                ('qtd', models.IntegerField(blank=True, null=True)),
+                ('qtde', models.IntegerField(blank=True, null=True)),
                 ('descricao', models.CharField(blank=True, max_length=250, null=True)),
                 ('data', models.DateField(blank=True, null=True)),
             ],

@@ -6,13 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .form import UsuarioForm
 
-
 def index(request):
     context = {'curso': 'Desenvolvimento de Sistemas'}
     return render(request, 'index.html', context)
 
 def contato(request):
-    context = {'nome': 'Instituto Federal de SC', 'telefone': '(47) 3363-5251', 'email': 'contato@ifsc.edu.br'}
+    context = {'curso': 'Desenvolvimento de Sistemas'}
     return render(request, 'contato.html', context)
 
 @login_required(login_url="urlentrar")
@@ -27,40 +26,40 @@ def cadastrarProduto(request):
 def salvarProduto(request):
     thisnome = request.POST.get('txtNome')
     thispreco = request.POST.get('txtPreco')
-    thisqtd = request.POST.get('txtQtd')
+    thisqtde = request.POST.get('txtQtde')
     thisdata = request.POST.get('txtData')
     thisdescricao = request.POST.get('txtDescricao')
 
     produto = Produto(
         nome = thisnome,
-        preco = float( thispreco ),
-        qtd = thisqtd,
+        preco = float(thispreco),
+        qtde = thisqtde,
         data = thisdata,
-        descricao = thisdescricao 
+        descricao = thisdescricao
     )
 
     produto.save()
     return redirect('urlproduto')
 
 def editarProduto(request, id):
-    produto = Produto.objects.get(id=id)
+    produto = get_object_or_404(Produto, id=id)  
+    #Produto.objects.get(id=id)
 
-    if request.method == 'GET':
-        context = {'p': produto }
-        return render (request, "editarProduto.html", context)
-
+    if request.method == "GET":
+        context = {'p': produto}
+        return render(request, "editarProduto.html", context)
     else:
         thisnome = request.POST.get('txtNome')
-        thispreco = request.POST.get('txtPreco').replace(',','.')
-        thisqtd = request.POST.get('txtQtd')
+        thispreco = request.POST.get('txtPreco').replace(',', '.')
+        thisqtde = request.POST.get('txtQtde')
         thisdata = request.POST.get('txtData')
         thisdescricao = request.POST.get('txtDescricao')
 
         produto.nome = thisnome
         produto.preco = float(thispreco)
-        produto.qtd = thisqtd
+        produto.qtde = thisqtde
         produto.data = thisdata
-        produto.descricao = thisdescricao 
+        produto.descricao = thisdescricao
 
         produto.save()
         return redirect('urlproduto')
@@ -71,8 +70,7 @@ def excluirProduto(request, id):
     return redirect('urlproduto')
 
 def entrar(request):
-
-    if request.method == 'GET':
+    if request.method == "GET":
         return render(request, "entrar.html")
     elif request.method == "POST":
         usuario = request.POST.get("txtUser")
@@ -82,7 +80,7 @@ def entrar(request):
         if user:
             login(request, user)
             return redirect('urlproduto')
-        messages.error(request, "Falha na autendicação!")
+        messages.error(request, "Falha na autenticação!")    
         return render(request, 'entrar.html')
 
 def sair(request):
@@ -99,8 +97,3 @@ def cadastrarUsuario(request):
         if form.is_valid():
             form.save()
             return redirect('urlentrar')
-
-
-
-
-
