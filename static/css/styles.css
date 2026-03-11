@@ -1,0 +1,28 @@
+.container{
+    max-width: 144rem;
+    margin: 0 auto;
+    padding: 3rem;
+
+}
+
+.main-header-container {
+    background: #13141f;
+
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Roboto Slab', serif;
+
+
+} 
+
+.main-logo{
+    font-size: 4rem;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+}
