@@ -31,7 +31,7 @@
             <td>R${{ p.preco }}</td>
             <td>{{ p.qtde }}</td>
             <td>{{ p.data }}</td>
-            <td>{{ p.descricao }}</td>
+            <td>{{ p.descricao | truncatechars:100 }}</td>
             <td>
               <form action="{% url 'urleditarProduto' p.id %}" method="GET">
                 {% csrf_token %}

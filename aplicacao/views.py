@@ -1,10 +1,53 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Produto
+from .models import Produto, Venda, ItemVenda, Perfil
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .form import UsuarioForm
+from .carrinho import Carrinho
+
+
+### CARRINHO #######
+def get_or_create_carrinho(request):
+    venda, created = Venda.objects.get_or_create(
+        cliente = request.user,
+        status = 'P' # Venda Pendente
+    )
+    return venda
+
+def vercarrinho(request):
+    venda = get_or_create_carrinho(request)
+    itens = venda.itemvenda_set.all()
+    perfil = getattr(request.user, 'perfil', None)
+
+    context = {
+        'venda': venda,
+        'itens': itens,
+        'perfil': perfil
+    }
+
+    return render(request, 'vercarrinho.html', context)
+
+def atualizarcarrinho(request, item_id):
+    item = get_object_or_404(ItemVenda, id=item_id, venda__cliente=request.user)
+
+    if request.method == 'POST':
+        acao = request.POST.get('acao')
+        if acao == 'aumentar':
+            if item.qtde < item.produto.qtde:
+                item.qtde += 1
+                item.save()
+        elif acao == 'diminuir':
+            if item.qtde > 1:
+                item.qtde -= 1
+                item.save()
+            else: # se for 1 e diminuir, então remove
+                item.delete()
+        elif acao == 'remover':
+            item.delete()
+    return redirect('urlvercarrinho')
+
 
 def index(request):
     produtos = Produto.objects.all()
@@ -29,13 +72,15 @@ def salvarProduto(request):
     thisqtde = request.POST.get('txtQtde')
     thisdata = request.POST.get('txtData')
     thisdescricao = request.POST.get('txtDescricao')
+    thisimagem = request.FILES.get('imagem')
 
     produto = Produto(
         nome = thisnome,
         preco = float(thispreco),
         qtde = thisqtde,
         data = thisdata,
-        descricao = thisdescricao
+        descricao = thisdescricao,
+        imagem = thisimagem
     )
 
     produto.save()
@@ -79,7 +124,7 @@ def entrar(request):
 
         if user:
             login(request, user)
-            return redirect('urlproduto')
+            return redirect('urlindex')
         messages.error(request, "Falha na autenticação!")    
         return render(request, 'entrar.html')
 
@@ -98,5 +143,19 @@ def cadastrarUsuario(request):
             form.save()
             return redirect('urlentrar')
 
+def carrinho(request):
+    carrinho = Carrinho(request)
+    return render(request, 'carrinho.html', {'carrinho': carrinho})
 
-            
+def addcarrinho(request, id):
+    produto = get_object_or_404(Produto, id=id)
+    carrinho = Carrinho(request)
+    carrinho.adicionar(produto=produto)
+    return redirect('carrinho.html')
+
+def delcarrinho(request):
+    return HttpResponse('del carrinho')
+
+def finalizarCompra(request):
+    return HttpResponse('finalizar compra')
+    

@@ -10,13 +10,24 @@
       {% for p in produtos %}
         <div class="card-group">
           <div class="card">
-            <img src="{{ p.imagem.url }}" class="card-img-top" alt="{{ p.nome }}" style="height: 250px; object-fit: cover;" />
+            {% if p.imagem %}
+              <img src="{{ p.imagem.url }}" class="card-img-top" alt="{{ p.nome }}" style="height: 200px; object-fit: cover;" />
+            {% else %}
+              <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                <span class="text-white">Sem imagem</span>
+              </div>
+            {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{ p.nome }}</h5>
               <p class="card-text">{{ p.descricao|truncatechars:100 }}</p>
             </div>
             <div class="card-footer">
               <small class="text-muted">R${{ p.preco }}</small>
+              {% if user.is_authenticated %}
+                <div class="btn-comprar">
+                  <a href="{% url 'urladdcarrinho' p.id %}" class="btn btn-primary">Comprar</a>
+                </div>
+              {% endif %}
             </div>
           </div>
         </div>

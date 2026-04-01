@@ -6,16 +6,17 @@
 
 {% block content %}
     <div class="container">
-        <form action="{% url 'urlsalvarProduto'%}" method="POST">
+        <form action="{% url 'urlsalvarProduto'%}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <h1>Cadastro de produto</h1>
             <input type="text" name="txtNome" placeholder="Digite o nome do produto..." class="form-control">
             <input type="text" name="txtPreco" placeholder="Digite o preço do produto..." class="form-control">
             <input type="number" name="txtQtde" placeholder="Digite a qtde do produto..." class="form-control">
             <input type="date" name="txtData" placeholder="Digite a data de compra..." class="form-control">
-            <input type="text" name="txtDescricao" placeholder="Digite a descrição do produto..." class="form-control">
+            <textarea name="txtDescricao" placeholder="Digite a descrição do produto..." class="form-control"></textarea>
+            <input type="file" id="imagem" name="imagem" accept="image/*" class="form-control">
 
-            <input type="submit" value="Salvar" class="btn btn-success">
+            <input type="submit" value="Salvar" class="btn btn-success" class="form-control">
         </form>
     </div>
 {% endblock %}

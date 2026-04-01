@@ -94,3 +94,19 @@ h1, h2, h3, h4, h5, h6 {
 .menu-hidden {
     left: -255px;
 }
+
+.btn-comprar {
+    float: right;
+}
+
+.boasvindas {
+    float: right;
+    font-size: 1rem;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+}

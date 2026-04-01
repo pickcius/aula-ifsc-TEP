@@ -1,0 +1,51 @@
+{% extends 'global/base.html ' %}
+{% block content %}
+  <div class="container mt-5">
+    <h2>Seu carrinho de Compras</h2>
+
+    <div class="row">
+      <div class="col-md-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Preço Uni.</th>
+              <th>Qtde</th>
+              <th>Subtotal</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in itens %}
+              <tr>
+                <td>{{ item.produto.nome }}</td>
+                <td>R${{ item.produto.preco }}</td>
+                <td>
+                    <form action="{% url 'urlatualizarcarrinho' item.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="btn-group">
+                            <button type="submit" name="acao" value="diminuir" class="btn btn-sm btn-secondary">-</button>
+                            <span class="btn btn-sm btn-light disabled">{{ item.qtde }}</span>
+                            <button type="submit" name="acao" value="aumentar" class="btn btn-sm btn-secondary">+</button>
+                        </div>
+                    </form>
+                </td>
+                <td>R${{ item.subtotal }}</td>
+                <td>
+                    <form action="{% url 'urlatualizarcarrinho' item.id %}" style="display:inline;" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" name="acao" value="remover" class="btn btn-sm btn-danger">X</button>
+                    </form>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="5">Seu carrinho está vazio.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
