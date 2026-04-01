@@ -158,4 +158,5 @@ def delcarrinho(request):
 
 def finalizarCompra(request):
     return HttpResponse('finalizar compra')
+
     
