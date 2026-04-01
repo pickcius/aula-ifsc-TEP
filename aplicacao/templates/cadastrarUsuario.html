@@ -5,14 +5,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1>Cadastro de usuário</h1>
-        <form action="{% url 'urlcadastrarUsuario' %}" method="POST">
-            {% csrf_token %}
-            <table>
-                {{ form.as_table }}
-            </table>
-            <input type="submit" value="Salvar" class="btn btn-success">
-        </form>
-    </div>
+  <div class="container">
+    <h1>Cadastro de usuário</h1>
+    <form action="{% url 'urlcadastrarUsuario' %}" method="POST">
+      {% csrf_token %}
+      <table>{{ form.as_table }}</table>
+      <input type="submit" value="Salvar" class="btn btn-success" />
+    </form>
+  </div>
 {% endblock %}
